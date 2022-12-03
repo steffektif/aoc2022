@@ -1,4 +1,5 @@
 import { readFileSync } from "fs";
+import { findPriority } from "./utils";
 
 const file = readFileSync("./input", "utf-8");
 const lines = file.split(/\r?\n/);
@@ -19,15 +20,6 @@ lines.map((line) => {
 
 console.log(
   items
-    .map((char) => {
-      const posInAsciiTable = char.charCodeAt(0); // only one letter
-      if (posInAsciiTable < 91) {
-        // is a capital letter
-        return posInAsciiTable - 38;
-      } else {
-        // is a small letter
-        return posInAsciiTable - 96;
-      }
-    })
+    .map((char) => findPriority(char))
     .reduce((prev, current) => prev + current, 0)
 );
